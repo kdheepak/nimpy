@@ -714,7 +714,7 @@ template valueTypeForArgType(t: typedesc): typedesc =
 proc updateStackBottom() {.inline.} =
     when declared(nimGC_setStackBottom):
         var a {.volatile.}: int
-        const tolerance = 8'u
+        const tolerance = 32'u
         nimGC_setStackBottom(cast[pointer](cast[uint](addr a) + tolerance * cast[uint](sizeof(pointer))))
         nimGC_setStackBottom(cast[pointer](cast[uint](addr a) - tolerance * cast[uint](sizeof(pointer))))
     elif not defined(nimpySuppressGCCrashWarning):
